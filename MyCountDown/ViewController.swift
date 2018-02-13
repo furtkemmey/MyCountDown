@@ -16,6 +16,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var selectedHourIndex = 1
     var selectedMinIndex = 1
     var selectedSecondIndex = 1
+    var coundDownInSec = 0
 
     //MARK: - IBOutlet
     @IBOutlet weak var totalTime: UILabel!
@@ -23,11 +24,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var pickerViewCountDown: UIPickerView!
 
     @IBAction func startButton(_ sender: UIButton) {
-        var coundDownInSec = totalSecond
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-            self.leftTime.text = "Left Time: \(String(format: "%0.0f", coundDownInSec))"
-            coundDownInSec -= 1
-            if coundDownInSec < 0 {
+            self.leftTime.text = "Left time \(self.coundDownInSec)"
+            print(self.coundDownInSec)
+            self.coundDownInSec -= 1
+            if self.coundDownInSec < 0 {
                 timer.invalidate()
             }
         }
@@ -102,7 +103,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         default:
             break
         }
-        totalTime.text = "\(totalSecond)"
+        coundDownInSec = totalSecond
+        totalTime.text = "Total time \(coundDownInSec)"
     }
 
 }
